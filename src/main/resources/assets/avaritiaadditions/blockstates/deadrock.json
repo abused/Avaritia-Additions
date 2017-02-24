@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "avaritiaadditions:deadrock" },
+        "inventory": { "model": "avaritiaadditions:deadrock" }
+   }
+}

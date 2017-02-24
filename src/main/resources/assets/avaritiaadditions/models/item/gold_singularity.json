@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "avaritiaadditions:items/singularity2",
+		"layer1": "avaritiaadditions:items/singularity"
+    }
+}

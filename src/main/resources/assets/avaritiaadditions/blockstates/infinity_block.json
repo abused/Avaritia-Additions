@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "avaritiaadditions:infinity_block" },
+        "inventory": { "model": "avaritiaadditions:infinity_block" }
+   }
+}

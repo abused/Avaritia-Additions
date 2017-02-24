@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.2"
+group= "abused_master.avaritia-additions"
+archivesBaseName = "avaritiaadditions"
+
+sourceCompatibility = targetCompatibility = "1.8"
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
+minecraft {
+    version = "1.10.2-12.18.3.2234"
+    runDir = "run"
+    
+    mappings = "snapshot_20161111"
+}
+
+repositories {
+  maven {
+    url = "http://dvs1.progwml6.com/files/maven"
+  }
+}
+
+dependencies {
+  deobfCompile "mezz.jei:jei_1.10.2:3.14.5.406:api"
+  runtime "mezz.jei:jei_1.10.2:3.14.5.406"
+}
+
+processResources
+{
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

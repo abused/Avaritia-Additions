@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "avaritiaadditions:neutronium_block" },
+        "inventory": { "model": "avaritiaadditions:neutronium_block" }
+   }
+}

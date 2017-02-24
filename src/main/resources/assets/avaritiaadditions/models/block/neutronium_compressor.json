@@ -1,0 +1,23 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "particle": "avaritiaadditions:blocks/compressor_side",
+        "0": "avaritiaadditions:blocks/compressor_front",
+        "1": "avaritiaadditions:blocks/compressor_side",
+        "2": "avaritiaadditions:blocks/compressor_side",
+        "3": "avaritiaadditions:blocks/compressor_top"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#2", "cullface": "down" },
+                "up":    { "texture": "#3", "cullface": "up"   },
+                "north": { "texture": "#0", "cullface": "north"   },
+                "south": { "texture": "#1", "cullface": "south"   },
+                "west":  { "texture": "#1", "cullface": "west"   },
+                "east":  { "texture": "#1", "cullface": "east"   }
+            }
+        }
+    ]
+}

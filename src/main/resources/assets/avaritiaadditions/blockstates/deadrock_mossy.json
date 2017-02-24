@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "avaritiaadditions:deadrock_mossy" },
+        "inventory": { "model": "avaritiaadditions:deadrock_mossy" }
+   }
+}

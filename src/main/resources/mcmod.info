@@ -1,0 +1,16 @@
+[
+{
+  "modid": "avaritiaadditions",
+  "name": "Avaritia Additions",
+  "description": "Addon to Avaritia 1.10.2. Adds in all the blocks and items from avaritia 1.7.10 back in 1.10.2 that Avaritia 1.10 did not add",
+  "version": "1.2",
+  "mcversion": "1.10.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["abused_master"],
+  "credits": "SpitefulFox, TTFTCUTS - original Avaritia authors.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
