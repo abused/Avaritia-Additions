@@ -3,7 +3,6 @@ package abused_master.avaritiaadditions.tile;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompressOreRecipe extends CompressorRecipe {

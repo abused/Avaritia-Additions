@@ -1,5 +1,6 @@
 package abused_master.avaritiaadditions;
 
+import abused_master.avaritiaadditions.minetweaker.Tweak;
 import abused_master.avaritiaadditions.proxy.CommonProxy;
 import abused_master.avaritiaadditions.registry.ModBlocks;
 import abused_master.avaritiaadditions.registry.ModItems;
@@ -7,6 +8,7 @@ import abused_master.avaritiaadditions.tile.CompressorRecipeRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -42,6 +44,12 @@ public class AvaritiaAdditions {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
         this.proxy.postInit(e);
+        if(Loader.isModLoaded("MineTweaker3"))
+            try {
+                Tweak.registrate();
+            }
+            catch (Throwable ex){
+            }
         CompressorRecipeRegistry.registerRecipe();
 
     }
