@@ -2,11 +2,9 @@ package abused_master.avaritiaadditions;
 
 import abused_master.avaritiaadditions.minetweaker.Tweak;
 import abused_master.avaritiaadditions.proxy.CommonProxy;
-import abused_master.avaritiaadditions.registry.ModBlocks;
 import abused_master.avaritiaadditions.registry.ModItems;
 import abused_master.avaritiaadditions.tile.CompressorRecipeRegistry;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -20,9 +18,8 @@ public class AvaritiaAdditions {
 
     public static final String MODID = "avaritiaadditions";
     public static final String MODNAME = "Avaritia Additions";
-    public static final String VERSION = "1.2";
+    public static final String VERSION = "1.5";
     public static final String compressorUid = "Compressor Recipes";
-    //public static final String DEPENDENCIES = "avaritia";
 
     @Mod.Instance
     public static AvaritiaAdditions instance;
@@ -51,7 +48,6 @@ public class AvaritiaAdditions {
             catch (Throwable ex){
             }
         CompressorRecipeRegistry.registerRecipe();
-
     }
 
     public static CreativeTabs AvaritiaAdditions = new CreativeTabs("avaritiaadditions") {

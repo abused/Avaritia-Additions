@@ -3,12 +3,15 @@ package abused_master.avaritiaadditions.tile.collector;
 import abused_master.avaritiaadditions.config.Config;
 import abused_master.avaritiaadditions.registry.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 
@@ -48,6 +51,15 @@ public class TileCollector extends TileEntity implements ISidedInventory, ITicka
             progress = 0;
             markDirty();
         }
+
+        BlockPos collectorPos = getPos();
+        for (EnumFacing side : EnumFacing.VALUES) {
+            BlockPos cip = collectorPos.offset(side);
+            TileEntity ite = worldObj.getTileEntity(cip);
+            if (ite instanceof IInventory) {
+                TileEntityHopper.putStackInInventoryAllSlots((IInventory) ite, neutrons, side.getOpposite());
+            }
+        }
     }
 
     @Override
@@ -62,7 +74,7 @@ public class TileCollector extends TileEntity implements ISidedInventory, ITicka
 
     @Override
     public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        return false;
+        return true;
     }
 
     @Override
@@ -93,7 +105,8 @@ public class TileCollector extends TileEntity implements ISidedInventory, ITicka
                 neutrons = null;
                 return take;
             }
-        }    }
+        }
+    }
 
     @Nullable
     @Override

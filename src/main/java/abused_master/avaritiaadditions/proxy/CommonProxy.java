@@ -6,8 +6,10 @@ import abused_master.avaritiaadditions.gui.GuiHandler;
 import abused_master.avaritiaadditions.registry.ModBlocks;
 import abused_master.avaritiaadditions.registry.ModItems;
 import abused_master.avaritiaadditions.registry.ModRecipes;
+import abused_master.avaritiaadditions.render.LudicrousEvents;
 import abused_master.avaritiaadditions.tile.TileCompressor;
 import abused_master.avaritiaadditions.tile.collector.TileCollector;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -27,6 +29,7 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileCollector.class, "tile_collector");
         NetworkRegistry.INSTANCE.registerGuiHandler(AvaritiaAdditions.instance, new GuiHandler());
         ModRecipes.initRecipes();
+        MinecraftForge.EVENT_BUS.register(new LudicrousEvents());
     }
 
     public void postInit(FMLPostInitializationEvent e) {

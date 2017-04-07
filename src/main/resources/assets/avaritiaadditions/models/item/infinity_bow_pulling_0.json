@@ -1,0 +1,6 @@
+{
+    "parent": "item/bow",
+    "textures": {
+        "layer0": "avaritiaadditions:items/infinity_bow_pulling_0"
+    }
+}

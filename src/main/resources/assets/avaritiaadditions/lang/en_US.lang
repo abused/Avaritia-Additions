@@ -31,3 +31,18 @@ item.copper_singularity.name=Copper Singularity
 item.endest_pearl.name=Endest Pearl
 item.ultimate_stew.name=Ultimate Stew
 item.cosmic_meatballs.name=Cosmic Meatballs
+
+item.infinity_pickaxe.name=World Breaker
+item.infinity_sword.name=Sword of the Cosmos
+item.infinity_shovel.name=Planet Eater
+item.infinity_axe.name=Nature's Ruin
+item.infinity_bow.name=Longbow of the Heavens
+item.skullfire_sword.name=Skullfire Sword
+
+item.infinity_armor_HEAD.name=Infinity Helmet
+item.infinity_armor_CHEST.name=Infinity Breastplate
+item.infinity_armor_LEGS.name=Infinity Pants
+item.infinity_armor_FEET.name=Infinity Boots
+
+tooltip.skullfire_sword.desc=Beheads skeletons and scorches them black.
+tip.infinity=Infinity

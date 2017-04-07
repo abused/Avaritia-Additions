@@ -11,7 +11,7 @@ public class BaseBlock extends Block {
     public BaseBlock(Material material, String regName, float Hardness, int level) {
         super(material);
         this.setUnlocalizedName(regName);
-        this.setHardness(blockHardness);
+        this.setHardness(Hardness);
         this.setHarvestLevel("Pickaxe", level);
         this.setCreativeTab(AvaritiaAdditions.AvaritiaAdditions);
     }

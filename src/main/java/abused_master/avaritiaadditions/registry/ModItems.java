@@ -1,10 +1,17 @@
 package abused_master.avaritiaadditions.registry;
 
 import abused_master.avaritiaadditions.items.*;
+import abused_master.avaritiaadditions.items.tools.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,6 +40,18 @@ public class ModItems {
     public static Item SilverSingularity;
     public static Item NickelSingularity;
 
+    public static Item infinity_helm;
+    public static Item infinity_armor;
+    public static Item infinity_pants;
+    public static Item infinity_shoes;
+
+    public static Item infinity_pickaxe;
+    public static Item infinity_sword;
+    public static Item infinity_shovel;
+    public static Item infinity_axe;
+    public static Item infinity_bow;
+    public static Item skulls_sword;
+
     public static void init() {
         DiamondLattice = regResource("diamond_lattice");
         NeutronsPile = regResource("neutrons_pile");
@@ -41,7 +60,7 @@ public class ModItems {
         InfinityCatalyst = regResource("infinity_catalyst");
         InfinityIngot = regResource("infinity_ingot");
         RecordFragment = regResource("record_fragment");
-        EndestPearl = regResource("endest_pearl");
+        //EndestPearl = regResource("endest_pearl");
         UltimateStew = new UltimateStew();
         CosmicMeatballs = new CosmicMeatballs();
         IronSingularity = regSingularity("iron_singularity");
@@ -55,6 +74,20 @@ public class ModItems {
         SilverSingularity = regSingularity("silver_singularity");
         NickelSingularity = regSingularity("nickel_singularity");
 
+        EndestPearl = GameRegistry.register(new ItemEndestPearl().setRegistryName("endest_pearl"));
+
+        infinity_helm = GameRegistry.register(new ItemArmorInfinity(EntityEquipmentSlot.HEAD).setRegistryName("infinity_armor_head"));
+        infinity_armor = GameRegistry.register(new ItemArmorInfinity(EntityEquipmentSlot.CHEST).setRegistryName("infinity_armor_chest"));
+        infinity_pants = GameRegistry.register(new ItemArmorInfinity(EntityEquipmentSlot.LEGS).setRegistryName("infinity_armor_legs"));
+        infinity_shoes = GameRegistry.register(new ItemArmorInfinity(EntityEquipmentSlot.FEET).setRegistryName("infinity_armor_feet"));
+        MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
+
+        infinity_pickaxe = new ItemPickaxeInfinity();
+        infinity_sword = new ItemSwordInfinity();
+        infinity_shovel = new ItemShovelInfinity();
+        infinity_axe = new ItemAxeInfinity();
+        infinity_bow = new ItemInfinityBow();
+        skulls_sword = new ItemSwordSkulls();
     }
 
     private static Item regResource(String regName) {
@@ -96,6 +129,17 @@ public class ModItems {
         reg(SilverSingularity);
         reg(NickelSingularity);
 
+        reg(infinity_helm);
+        reg(infinity_armor);
+        reg(infinity_pants);
+        reg(infinity_shoes);
+
+        reg(infinity_pickaxe);
+        reg(infinity_sword);
+        reg(infinity_shovel);
+        reg(infinity_axe);
+        reg(infinity_bow);
+        reg(skulls_sword);
     }
 
     public static void reg(Item item) {
@@ -119,5 +163,21 @@ public class ModItems {
     @SideOnly(Side.CLIENT)
     public static void setItemColor(Item item, int color, int color2){
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ItemColorHandler(color, color2), item);
+    }
+
+    public static boolean isInfinite(EntityPlayer player){
+        ItemStack head = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+        ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        ItemStack legs = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
+        ItemStack feet = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+
+        if(head == null || chest == null
+                || legs == null || feet == null)
+            return false;
+        if(feet.getItem() == infinity_shoes && legs.getItem() == infinity_pants
+                && chest.getItem() == infinity_armor && head.getItem() == infinity_helm)
+            return true;
+        else
+            return false;
     }
 }
