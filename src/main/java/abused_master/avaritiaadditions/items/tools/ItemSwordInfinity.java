@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
 
-public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
+public class ItemSwordInfinity extends ItemSword {
 
     private static final ToolMaterial opSword = EnumHelper.addToolMaterial("INFINITY_SWORD", 32, 9999, 9999F, -3.0F, 200);
     public static EnumRarity cosmic = EnumHelper.addRarity("COSMIC", TextFormatting.RED, "Cosmic");
@@ -84,31 +84,10 @@ public class ItemSwordInfinity extends ItemSword implements ICosmicRenderItem {
     }
 
     @Override
-    public boolean hasCustomEntity (ItemStack stack)
-    {
-        return true;
-    }
-
-    @Override
-    public Entity createEntity (World world, Entity location, ItemStack itemstack)
-    {
-        return new EntityImmortalItem(world, location, itemstack);
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
         return false;
     }
 
-    @Override
-    public Models getMaskTexture(ItemStack stack, EntityPlayer player) {
-        return null;
-    }
-
-    @Override
-    public float getMaskMultiplier(ItemStack stack, EntityPlayer player) {
-        return 0;
-    }
 }

@@ -44,7 +44,7 @@ public class InfinityWingsModel extends ModelBiped
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     wing1.render(f5);
     Shape1.render(f5);
-    mc.renderEngine.bindTexture(wingGlowTex);
+    //mc.renderEngine.bindTexture(wingGlowTex);
 
     long time = mc.thePlayer.worldObj.getWorldTime();
     double pulse = Math.sin(time / 10.0)*0.5 + 0.5;

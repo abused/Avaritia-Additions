@@ -42,17 +42,17 @@ public class Config {
 
     public static void configure(Configuration config) {
 
-        config.addCustomCategoryComment(AVARITIA_ADDITIONS, "Set to amount of blocks required for the singularity");
-        IronSingularity = config.getInt("IronSingularity", AVARITIA_ADDITIONS, 400, 0, 1000000, "");
-        GoldSingularity = config.getInt("GoldSingularity", AVARITIA_ADDITIONS, 200, 0, 1000000, "");
-        LapisSingularity = config.getInt("LapisSingularity", AVARITIA_ADDITIONS, 400, 0, 1000000, "");
-        RedstoneSingularity = config.getInt("RedstoneSingularity", AVARITIA_ADDITIONS, 500, 0, 1000000, "");
-        QuartzSingularity = config.getInt("QuartzSingularity", AVARITIA_ADDITIONS, 300, 0, 1000000, "");
-        CopperSingularity = config.getInt("CopperSingularity", AVARITIA_ADDITIONS, 400, 0, 1000000, "");
-        TinSingularity = config.getInt("TinSingularity", AVARITIA_ADDITIONS, 400, 0, 100, "");
-        LeadSingularity = config.getInt("LeadSingularity", AVARITIA_ADDITIONS, 300, 0, 100, "");
-        SilverSingularity = config.getInt("SilverSingularity", AVARITIA_ADDITIONS, 300, 0, 1000000, "");
-        NeutronCollector = config.getInt("NeutronCollector", AVARITIA_ADDITIONS, 7111, 0, 1000000, "Set the amound of ticks before a pile of neutrons is created");
+        config.addCustomCategoryComment(AVARITIA_ADDITIONS, "Set to amount of blocks required for a singularity");
+        IronSingularity = config.getInt("IronSingularity", AVARITIA_ADDITIONS, 400, 1, 1000000, "");
+        GoldSingularity = config.getInt("GoldSingularity", AVARITIA_ADDITIONS, 200, 1, 1000000, "");
+        LapisSingularity = config.getInt("LapisSingularity", AVARITIA_ADDITIONS, 400, 1, 1000000, "");
+        RedstoneSingularity = config.getInt("RedstoneSingularity", AVARITIA_ADDITIONS, 500, 1, 1000000, "");
+        QuartzSingularity = config.getInt("QuartzSingularity", AVARITIA_ADDITIONS, 300, 1, 1000000, "");
+        CopperSingularity = config.getInt("CopperSingularity", AVARITIA_ADDITIONS, 400, 1, 1000000, "");
+        TinSingularity = config.getInt("TinSingularity", AVARITIA_ADDITIONS, 400, 1, 1000000, "");
+        LeadSingularity = config.getInt("LeadSingularity", AVARITIA_ADDITIONS, 300, 1, 1000000, "");
+        SilverSingularity = config.getInt("SilverSingularity", AVARITIA_ADDITIONS, 300, 1, 1000000, "");
+        NeutronCollector = config.getInt("NeutronCollector", AVARITIA_ADDITIONS, 7111, 1, 1000000, "Set the amount of ticks before a pile of neutrons is created");
     }
 
 }

@@ -1,5 +1,6 @@
 package abused_master.avaritiaadditions.items.tools;
 
+import abused_master.avaritiaadditions.items.ItemMatterCluster;
 import abused_master.avaritiaadditions.items.ItemStackWrapper;
 import abused_master.avaritiaadditions.registry.ModItems;
 import net.minecraft.block.Block;
@@ -30,8 +31,8 @@ public class ToolHelper {
     public static Map<EntityPlayer, List<ItemStack>> hammerdrops = new WeakHashMap<EntityPlayer, List<ItemStack>>();
 
     public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, IBlockState state, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
-        Block block = state.getBlock();
-        float blockHardness = block == null ? 1F : state.getBlockHardness(world, new BlockPos(x, y, z));
+        Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
+        float blockHardness = block == null ? 1F : block.getDefaultState().getBlockHardness(world, new BlockPos(x, y, z));
 
         if (!hammerdrops.containsKey(player) || hammerdrops.get(player) == null) {
             hammerdrops.put(player, new ArrayList<ItemStack>());
@@ -45,8 +46,8 @@ public class ToolHelper {
             for(int y1 = ys; y1 < ye; y1++)
                 for(int z1 = zs; z1 < ze; z1++)
                     removeBlockWithDrops(player, stack, world, new BlockPos(x1 + x, y1 + y, z1 + z), state, materialsListing, silk, fortune, blockHardness, dispose);
-
-        int meta = block.getMetaFromState(state);
+        IBlockState state2 = world.getBlockState(new BlockPos(x, y, z));
+        int meta = block.getMetaFromState(state2);
         if(!world.isRemote /*&& ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool*/)
             //world.playSound(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 
@@ -56,6 +57,15 @@ public class ToolHelper {
 
         //List<ItemStack> drops = collateDropList(hammerdrops.get(player));
         //Lumberjack.info(drops);
+
+        if(!world.isRemote) {
+            List<ItemStack> clusters = ItemMatterCluster.makeClusters(hammerdrops.get(player));
+
+            for (ItemStack cluster : clusters) {
+                EntityItem ent = new EntityItem(world, x,y,z, cluster);
+                world.spawnEntityInWorld(ent);
+            }
+        }
 
         hammerdrops.put(player, null);
     }
@@ -69,7 +79,7 @@ public class ToolHelper {
     }
 
     public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, IBlockState state, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose) {
-        Block block = state.getBlock();
+        Block block = world.getBlockState(pos).getBlock();
         if(block==null) {
             return;
         }
@@ -82,8 +92,8 @@ public class ToolHelper {
 
         Material mat = state1.getMaterial();
         if(!world.isRemote && blk != null && !blk.isAir(state1,world, pos)/* && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0*/) {
-            //if(blk == Blocks.GRASS && stack.getItem() == ModItems.infinity_axe)
-                ///world.setBlockState(pos, Blocks.DIRT.getDefaultState());
+            if(blk == Blocks.GRASS && stack.getItem() == ModItems.infinity_axe)
+                world.setBlockState(pos, Blocks.DIRT.getDefaultState());
             if(!blk.canHarvestBlock(world,pos,player) || !isRightMaterial(mat, materialsListing))
                 return;
 

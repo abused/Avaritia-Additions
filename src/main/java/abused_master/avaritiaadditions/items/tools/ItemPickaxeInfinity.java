@@ -3,22 +3,27 @@ package abused_master.avaritiaadditions.items.tools;
 import abused_master.avaritiaadditions.AvaritiaAdditions;
 import abused_master.avaritiaadditions.items.entity.EntityImmortalItem;
 import abused_master.avaritiaadditions.registry.ModItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
@@ -92,24 +97,54 @@ public class ItemPickaxeInfinity extends ItemPickaxe {
 
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-        return super.onBlockStartBreak(stack, pos, player);
+        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("hammer")) {
+            RayTraceResult raycast = ToolHelper.raytraceFromEntity(player.worldObj, player, true, 10);
+            if (raycast != null) {
+                breakOtherBlock(player, stack, pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ(), raycast.sideHit.getHorizontalIndex());
+            }
+        }
+        return false;
     }
 
-    @Override
-    public boolean hasCustomEntity (ItemStack stack)
-    {
-        return true;
-    }
+    public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side) {
 
-    @Override
-    public Entity createEntity (World world, Entity location, ItemStack itemstack)
-    {
-        return new EntityImmortalItem(world, location, itemstack);
+        World world = player.worldObj;
+        Material mat = world.getBlockState(new BlockPos(x, y, z)).getMaterial();
+        if(!ToolHelper.isRightMaterial(mat, MATERIALS))
+            return;
+
+        if(world.isAirBlock(new BlockPos(x, y, z)))
+            return;
+
+        EnumFacing direction = EnumFacing.getHorizontal(side);
+        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(35), stack);
+        int silktouch = EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(33), stack);
+        boolean silk;
+        if(silktouch > 0) {
+            silk = true;
+        } else {
+            silk = false;
+        }
+        boolean doY = direction.getFrontOffsetY() == 0;
+
+        int range = 8;
+
+        ToolHelper.removeBlocksInIteration(player, stack, world, x, y, z, -range, doY ? -1 : -range, -range, range, doY ? range * 2 - 2 : range, range, null, MATERIALS, silk, fortune, false);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
         return false;
+    }
+
+    @Override
+    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+        return (state.getBlock() == Blocks.BEDROCK) ? Float.MAX_VALUE : super.getStrVsBlock(stack, state);
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockState blockIn) {
+        return (blockIn.getBlock() == Blocks.BEDROCK) ? true : true;
     }
 }

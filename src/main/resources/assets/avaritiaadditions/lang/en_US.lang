@@ -44,5 +44,11 @@ item.infinity_armor_CHEST.name=Infinity Breastplate
 item.infinity_armor_LEGS.name=Infinity Pants
 item.infinity_armor_FEET.name=Infinity Boots
 
+item.mattercluster.name=Matter Cluster
+item.mattercluster.full.name=Critical Matter Cluster
+
 tooltip.skullfire_sword.desc=Beheads skeletons and scorches them black.
 tip.infinity=Infinity
+tooltip.matter_cluster.desc=Use to deconstruct.
+tooltip.matter_cluster.desc2=Hold SHIFT for contents.
+tooltip.matter_cluster.counter=items

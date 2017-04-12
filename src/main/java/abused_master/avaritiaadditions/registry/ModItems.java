@@ -28,6 +28,7 @@ public class ModItems {
     public static Item EndestPearl;
     public static Item UltimateStew;
     public static Item CosmicMeatballs;
+    public static Item MatterCluster;
 
     public static Item IronSingularity;
     public static Item GoldSingularity;
@@ -80,7 +81,6 @@ public class ModItems {
         infinity_armor = GameRegistry.register(new ItemArmorInfinity(EntityEquipmentSlot.CHEST).setRegistryName("infinity_armor_chest"));
         infinity_pants = GameRegistry.register(new ItemArmorInfinity(EntityEquipmentSlot.LEGS).setRegistryName("infinity_armor_legs"));
         infinity_shoes = GameRegistry.register(new ItemArmorInfinity(EntityEquipmentSlot.FEET).setRegistryName("infinity_armor_feet"));
-        MinecraftForge.EVENT_BUS.register(new ItemArmorInfinity.abilityHandler());
 
         infinity_pickaxe = new ItemPickaxeInfinity();
         infinity_sword = new ItemSwordInfinity();
@@ -88,6 +88,7 @@ public class ModItems {
         infinity_axe = new ItemAxeInfinity();
         infinity_bow = new ItemInfinityBow();
         skulls_sword = new ItemSwordSkulls();
+        MatterCluster = new ItemMatterCluster();
     }
 
     private static Item regResource(String regName) {
@@ -140,6 +141,7 @@ public class ModItems {
         reg(infinity_axe);
         reg(infinity_bow);
         reg(skulls_sword);
+        reg(MatterCluster);
     }
 
     public static void reg(Item item) {

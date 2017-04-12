@@ -9,6 +9,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,11 +25,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 public class ItemShovelInfinity extends ItemSpade {
 
     public static final ToolMaterial opShovel = EnumHelper.addToolMaterial("INFINITY_SHOVEL", 32, 9999, 9999F, 7.0F, 200);
     public static EnumRarity cosmic = EnumHelper.addRarity("COSMIC", TextFormatting.RED, "Cosmic");
-
+    boolean destroyer = false;
 
     public ItemShovelInfinity(){
         super(opShovel);
@@ -63,18 +66,22 @@ public class ItemShovelInfinity extends ItemSpade {
             }
             tags.setBoolean("destroyer", !tags.getBoolean("destroyer"));
             player.swingArm(hand);
+            if(destroyer) {
+                destroyer = false;
+            }else {
+                destroyer = true;
+            }
         }
         return super.onItemRightClick(stack, world, player, hand);
     }
 
     @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-        RayTraceResult raycast = ToolHelper.raytraceFromEntity(player.worldObj, player, true, 10);
-        if (raycast != null) {
-            //breakOtherBlock(player, stack, x, y, z, x, y, z, raycast.sideHit.getIndex());
+        if(stack.getTagCompound() != null && stack.getTagCompound().getBoolean("destroyer")) {
+            RayTraceResult raycast = ToolHelper.raytraceFromEntity(player.worldObj, player, true, 10);
+            if (raycast != null) {
+                breakOtherBlock(player, stack, pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ(), raycast.sideHit.getHorizontalIndex());
+            }
         }
         return false;
     }
@@ -92,7 +99,7 @@ public class ItemShovelInfinity extends ItemSpade {
         EnumFacing direction = EnumFacing.getHorizontal(side);
         int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(35), stack);
         int silktouch = EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(33), stack);
-        boolean silk = false;
+        boolean silk;
         if(silktouch > 0) {
             silk = true;
         } else {
@@ -101,20 +108,8 @@ public class ItemShovelInfinity extends ItemSpade {
         boolean doY = direction.getFrontOffsetY() == 0;
 
         int range = 8;
-        //ToolHelper.removeBlocksInIteration(player, stack, world, x, y, z, -range, doY ? -1 : -range, -range, range, doY ? range * 2 - 2 : range, range, null, ItemPickaxeInfinity.MATERIALS, silk, fortune, false);
 
-    }
-
-    @Override
-    public boolean hasCustomEntity (ItemStack stack)
-    {
-        return true;
-    }
-
-    @Override
-    public Entity createEntity (World world, Entity location, ItemStack itemstack)
-    {
-        return new EntityImmortalItem(world, location, itemstack);
+        ToolHelper.removeBlocksInIteration(player, stack, world, x, y, z, -range, doY ? -1 : -range, -range, range, doY ? range * 2 - 2 : range, range, null, ItemPickaxeInfinity.MATERIALS, silk, fortune, false);
     }
 
     @Override

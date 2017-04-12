@@ -1,5 +1,6 @@
 package abused_master.avaritiaadditions.registry;
 
+import fox.spiteful.avaritia.Avaritia;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -19,6 +20,8 @@ public class ModRecipes {
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.NeutroniumIngot, 9), new ItemStack(ModBlocks.NeutroniumBlock));
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.NeutronsPile, 9), new ItemStack(ModItems.NeutroniumNugget));
         addShapelessRecipe(new ItemStack(ModItems.RecordFragment, 9), "record");
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CrystalMatrix, 1), "CCC", "CCC", "CCC", 'C', new ItemStack(Avaritia.matrixIngot));
+
     }
 
     public static void addShapelessRecipe(ItemStack output, Object... input){
